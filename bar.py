@@ -1,5 +1,4 @@
 from turtle import Turtle
-import main
 
 #Constants
 UP = 90
