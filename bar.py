@@ -15,14 +15,23 @@ class Bar(Turtle):
         self.setposition(x_cor,0)
 
 
+
+    #Se debe de limitar que las barras no traspasen el marco
     def up(self):
+        if self.position()[1] >= 260 :
+            return
+
         self.setheading(UP)
         self.forward(10)
         return
 
     def down(self):
+
+        if self.position()[1] <= -250:
+            return
+
         self.setheading(DOWN)
-        self.forward(10)
+        self.forward(20)
         return
 
 

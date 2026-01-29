@@ -25,13 +25,14 @@ player2 = Player(X_COR_SCOREBOARD, Y_COR_SCOREBOARD, X_COR_PLAYER)
 # Controls keys configurations
 screen.listen()
 
-    #Player 1
-screen.onkey(player1.move_up, "w")
-screen.onkey(player1.move_down, "s")
 
-    #PLayer 2
-screen.onkey(player2.move_up, "Up")
-screen.onkey(player2.move_down, "Down")
+#Player 1
+screen.onkeypress(player1.move_up, "w")
+screen.onkeypress(player1.move_down, "s")
+
+#PLayer 2
+screen.onkeypress(player2.move_up, "Up")
+screen.onkeypress(player2.move_down, "Down")
 
 #Variable of control
 game_is_on = True
@@ -64,4 +65,5 @@ while game_is_on:
 #Mostrar mensaje de juego acabado
 #Cualquiera puede mostrar quien es el que perdió, es indiferente para la logica
 player1.show_end_game()
+screen.exitonclick()
 
