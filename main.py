@@ -1,5 +1,6 @@
 from turtle import Screen
 from player import Player
+from ball import Ball
 
 # =================
 #Constants:
@@ -21,10 +22,10 @@ screen.tracer(0) #Off automatic animations
 #Objects configuration
 player1 = Player( -1 * X_COR_SCOREBOARD, Y_COR_SCOREBOARD, -1 * X_COR_PLAYER)
 player2 = Player(X_COR_SCOREBOARD, Y_COR_SCOREBOARD, X_COR_PLAYER)
+ball = Ball()
 
 # Controls keys configurations
 screen.listen()
-
 
 #Player 1
 screen.onkeypress(player1.move_up, "w")
@@ -49,7 +50,18 @@ while game_is_on:
     same_score = player1.get_score() == player2.get_score() == SCORE_TO_WIN
     actual_high_score = max(player1.get_score(), player2.get_score())
 
+    #Casos de anotación:
+    #Se obtiene un punto cuando la bola supera la posición de la barra en x
+    if ball.pos()[0] < -1 * X_COR_SCOREBOARD or ball.pos()[0] > X_COR_SCOREBOARD:
+
+        #Dar el punto al ultimo que tocó la pelota
+        if ball.get_who_touched() == "1":
+            player1.give_point()
+        else:
+            player2.give_point()
+
     #Casos donde se termina el juego
+
     #Si ambos alcanzan el mismo marcador
     if same_score:
         actual_score_diff = player1.get_score() - player2.get_score()

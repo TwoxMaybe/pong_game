@@ -25,3 +25,6 @@ class Player:
     def get_score(self):
         return self.scoreboard.get_score()
 
+    def give_point(self):
+        self.scoreboard.add_point()
+
