@@ -1,0 +1,15 @@
+
+#Screen constants
+WIDTH_SCREEN, HEIGHT_SCREEN = 600, 600
+X_COR_PLAYER = (WIDTH_SCREEN / 2 ) - 100
+
+#Scoreboard position constants
+X_COR_SCOREBOARD = 100
+Y_COR_SCOREBOARD = (HEIGHT_SCREEN / 2) - 100
+
+#Limits to score constants
+VERTICAL_lEFT_LIMIT_TO_SCORE = (-1 * (WIDTH_SCREEN / 2)) + 10
+VERTICAL_RIGHT_LIMIT_TO_SCORE = (WIDTH_SCREEN / 2) - 10
+
+#Game constants
+SCORE_TO_WIN = 10

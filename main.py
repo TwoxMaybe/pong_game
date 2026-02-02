@@ -1,27 +1,20 @@
 from turtle import Screen
 from player import Player
 from ball import Ball
-
-# =================
-#Constants:
-WIDTH_SCREEN, HEIGHT_SCREEN = 600, 600
-X_COR_PLAYER = (WIDTH_SCREEN / 2 ) - 100
-
-X_COR_SCOREBOARD = 100
-Y_COR_SCOREBOARD = (HEIGHT_SCREEN / 2) - 100
-
-SCORE_TO_WIN = 10
+from scoreboard import check_if_is_point, is_game_over
+import game_constants as const
+import time
 
 #Screen configuration
 screen = Screen()
-screen.setup(WIDTH_SCREEN, HEIGHT_SCREEN)
+screen.setup(const.WIDTH_SCREEN, const.HEIGHT_SCREEN)
 screen.title("Pong Game")
 screen.bgcolor("black")
 screen.tracer(0) #Off automatic animations
 
 #Objects configuration
-player1 = Player( -1 * X_COR_SCOREBOARD, Y_COR_SCOREBOARD, -1 * X_COR_PLAYER)
-player2 = Player(X_COR_SCOREBOARD, Y_COR_SCOREBOARD, X_COR_PLAYER)
+player1 = Player( -1 * const.X_COR_SCOREBOARD, const.Y_COR_SCOREBOARD, -1 * const.X_COR_PLAYER)
+player2 = Player(const.X_COR_SCOREBOARD, const.Y_COR_SCOREBOARD, const.X_COR_PLAYER)
 ball = Ball()
 
 # Controls keys configurations
@@ -44,35 +37,18 @@ while game_is_on:
     player1.show_score()
     player2.show_score()
 
+    #Mueva la pelota y verifique si no ha chocado
+    time.sleep(0.1)
+    ball.move()
+
     #Actualiza la pantalla para mostrar los cambios
     screen.update()
 
-    same_score = player1.get_score() == player2.get_score() == SCORE_TO_WIN
-    actual_high_score = max(player1.get_score(), player2.get_score())
-
     #Casos de anotación:
-    #Se obtiene un punto cuando la bola supera la posición de la barra en x
-    if ball.pos()[0] < -1 * X_COR_SCOREBOARD or ball.pos()[0] > X_COR_SCOREBOARD:
-
-        #Dar el punto al ultimo que tocó la pelota
-        if ball.get_who_touched() == "1":
-            player1.give_point()
-        else:
-            player2.give_point()
+    check_if_is_point(ball,player1,player2)
 
     #Casos donde se termina el juego
-
-    #Si ambos alcanzan el mismo marcador
-    if same_score:
-        actual_score_diff = player1.get_score() - player2.get_score()
-        diff_of_two = actual_score_diff == 2
-
-        if diff_of_two:
-            game_is_on = False
-
-    # El primero en alcanzar el marcador decidido
-    if actual_high_score == SCORE_TO_WIN:
-        game_is_on = False
+    game_is_on = is_game_over(player1,player2)
 
 #Mostrar mensaje de juego acabado
 #Cualquiera puede mostrar quien es el que perdió, es indiferente para la logica

@@ -7,7 +7,7 @@ DOWN = 270
 class Bar(Turtle):
     def __init__(self, x_cor) -> None:
         super().__init__()
-        self.penup() #Que no deje rastro al moverse
+        self.penup()
         self.shape("square")
         self.shapesize(stretch_wid=1, stretch_len=4)
         self.setheading(90)
@@ -16,6 +16,8 @@ class Bar(Turtle):
 
     #Se debe de limitar que las barras no traspasen el marco
     def up(self):
+
+        #Que no se salga de la pantalla
         if self.position()[1] >= 260 :
             return
 
@@ -25,7 +27,8 @@ class Bar(Turtle):
 
     def down(self):
 
-        if self.position()[1] <= -250:
+        #Que no salga de la pantalla
+        if self.position()[1] <= -260:
             return
 
         self.setheading(DOWN)
