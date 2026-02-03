@@ -28,3 +28,9 @@ class Player:
     def give_point(self):
         self.scoreboard.add_point()
 
+    def get_y_position(self):
+        return self.bar.position()[1]
+
+    def get_x_position(self):
+        return self.bar.position()[0]
+

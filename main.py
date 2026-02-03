@@ -39,6 +39,7 @@ while game_is_on:
 
     #Mueva la pelota y verifique si no ha chocado
     time.sleep(0.1)
+    ball.is_crash(player1,player2)
     ball.move()
 
     #Actualiza la pantalla para mostrar los cambios

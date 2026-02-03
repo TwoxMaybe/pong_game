@@ -11,7 +11,8 @@ class Ball(Turtle):
         self.setposition(0,0)
         self.penup()
         self.who_touched = "1"
-        self.possible_directions = [45,135,225,315]
+        self.possible_directions = [0,45,135,225,315]
+        self.direction = 0
         self.speed(1)
 
     def get_who_touched(self):
@@ -21,48 +22,68 @@ class Ball(Turtle):
         self.who_touched = who_touched
         return
 
-    def choose_direction(self):
-        return random.choice(self.possible_directions)
+    def random_direction(self):
+        self.direction = random.choice(self.possible_directions)
+        return self.direction
 
-    def crash_with_player(self):
+    def choose_next_direction(self):
 
-        #Intervalo en el que se detecta una colisión con le jugador 1
-        pos_player2_top = (X_COR_PLAYER + 10,self.position()[1] + 40)
-        pos_player2_bottom = (X_COR_PLAYER - 10,self.position()[1] - 40)
+        if self.direction == self.possible_directions[0]:
+            return self.random_direction()
 
-        pos_player1_top = (-1 * X_COR_PLAYER - 10 , self.position()[1] + 40)
-        pos_player1_bottom = (-1 * X_COR_PLAYER + 10, self.position()[1] - 40)
+        elif self.direction == self.possible_directions[1]:
+            return self.possible_directions[2]
 
-        crash_with_player1 = pos_player1_top >= self.position() >= pos_player1_bottom
-        crash_with_player2 = pos_player2_bottom >= self.position() >= pos_player2_top
+        elif self.direction == self.possible_directions[2]:
+            return self.possible_directions[3]
+
+        elif self.direction == self.possible_directions[3]:
+            return self.possible_directions[4]
+
+        return self.possible_directions[0]
+
+    def crash_with_borders(self):
 
         # Pared superior o inferior
         if self.position()[1] >= 290 or self.position()[1] < -1 * 290:
             return True
+        return False
 
-        #A las barras
-        elif crash_with_player1:
-            self.set_who_touched("1")
+    def crash_with_player(self, player):
+
+        #Si la bola esta lo suficientemente cerca en x y en y se cuenta como choque
+        x_pos_diff = abs(self.position()[0] - player.get_x_position())
+        y_pos_diff = abs(self.position()[1] - player.get_y_position())
+
+        collision_y = y_pos_diff < 50
+        collision_x = x_pos_diff < 20
+
+        is_crash =  collision_y and collision_x
+
+        if is_crash:
             return True
 
-        elif crash_with_player2:
-            self.set_who_touched("2")
-            return True
+        return False
 
-        return None
+    def is_crash(self,player1,player2):
 
+        is_crash = self.crash_with_borders() or self.crash_with_player(player1) or self.crash_with_player(player2)
+
+        if is_crash:
+            self.direction = self.choose_next_direction()
+
+        return
 
     def move(self):
-        if self.crash_with_player():
-            new_direction = self.choose_direction()
-            self.setheading(new_direction)
-
+        self.setheading(self.direction)
         self.forward(20)
+
         return
 
     def move_to_origin(self):
         self.setposition(0,0)
-        self.setheading(self.choose_direction())
+        self.setheading(self.choose_next_direction())
+        self.direction = self.random_direction()
         return
 
 
