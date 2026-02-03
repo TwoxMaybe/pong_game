@@ -14,7 +14,7 @@ class Ball(Turtle):
         self.possible_directions = [0,45,135,225,315]
         self.direction = 0
         self.speed(1)
-        self.x_move, self.y_move = 10, 10
+        self.x_move, self.y_move = 3, 3
 
     def get_who_touched(self):
         return self.who_touched

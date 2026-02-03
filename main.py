@@ -71,7 +71,7 @@ while game_is_on:
     player2.show_score()
 
     #Mueva la pelota y verifique si no ha chocado
-    time.sleep(0.1)
+    time.sleep(0.01)
     ball.move()
     ball.is_crash(player1,player2)
 

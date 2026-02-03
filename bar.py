@@ -17,23 +17,14 @@ class Bar(Turtle):
 
     #Se debe de limitar que las barras no traspasen el marco
     def up(self):
-
-        #Que no se salga de la pantalla
-        if self.position()[1] >= (HEIGHT_SCREEN / 2) - 40 :
-            return
-
+        if self.position()[1] >= 260: return
         self.setheading(UP)
-        self.forward(10)
-        return
+        self.forward(20)
 
     def down(self):
-
-        #Que no salga de la pantalla
-        if self.position()[1] <= -1 * ((HEIGHT_SCREEN / 2) - 40):
-            return
-
+        if self.position()[1] <= -260: return
         self.setheading(DOWN)
         self.forward(20)
-        return
+
 
 
