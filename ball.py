@@ -14,6 +14,7 @@ class Ball(Turtle):
         self.possible_directions = [0,45,135,225,315]
         self.direction = 0
         self.speed(1)
+        self.x_move, self.y_move = 10, 10
 
     def get_who_touched(self):
         return self.who_touched
@@ -67,18 +68,27 @@ class Ball(Turtle):
 
     def is_crash(self,player1,player2):
 
-        is_crash = self.crash_with_borders() or self.crash_with_player(player1) or self.crash_with_player(player2)
-
-        if is_crash:
-            self.direction = self.choose_next_direction()
+        if self.crash_with_borders():
+            self.bounce_y()
+        elif self.crash_with_player(player1) or self.crash_with_player(player2):
+            self.bounce_x()
 
         return
 
     def move(self):
-        self.setheading(self.direction)
-        self.forward(20)
+        new_x = self.xcor() + self.x_move
+        new_y = self.ycor() + self.y_move
+        self.goto(new_x, new_y)
 
         return
+
+    def bounce_y(self):
+        # Invertir dirección vertical (para techos)
+        self.y_move *= -1
+
+    def bounce_x(self):
+        # Invertir dirección horizontal (para palas)
+        self.x_move *= -1
 
     def move_to_origin(self):
         self.setposition(0,0)

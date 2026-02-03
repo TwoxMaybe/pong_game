@@ -1,4 +1,5 @@
 from turtle import Turtle
+from game_constants import HEIGHT_SCREEN
 
 #Constants
 UP = 90
@@ -18,7 +19,7 @@ class Bar(Turtle):
     def up(self):
 
         #Que no se salga de la pantalla
-        if self.position()[1] >= 260 :
+        if self.position()[1] >= (HEIGHT_SCREEN / 2) - 40 :
             return
 
         self.setheading(UP)
@@ -28,7 +29,7 @@ class Bar(Turtle):
     def down(self):
 
         #Que no salga de la pantalla
-        if self.position()[1] <= -260:
+        if self.position()[1] <= -1 * ((HEIGHT_SCREEN / 2) - 40):
             return
 
         self.setheading(DOWN)
