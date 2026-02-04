@@ -14,17 +14,28 @@ class Bar(Turtle):
         self.setheading(90)
         self.color("white")
         self.setposition(x_cor,0)
+        self.directions ={"UP": False, "DOWN": False}
 
-    #Se debe de limitar que las barras no traspasen el marco
-    def up(self):
-        if self.position()[1] >= 260: return
-        self.setheading(UP)
-        self.forward(20)
+    def press_up(self): self.directions["UP"] = True
 
-    def down(self):
-        if self.position()[1] <= -260: return
-        self.setheading(DOWN)
-        self.forward(20)
+    def off_up(self): self.directions["UP"] = False
+
+    def press_down(self): self.directions["DOWN"] = True
+
+    def off_down(self): self.directions["DOWN"] = False
+
+    def move(self):
+        if self.directions["UP"]:
+            if self.position()[1] >= 260: return
+            self.setheading(UP)
+            self.forward(10)
+
+        elif self.directions["DOWN"]:
+            if self.position()[1] <= -260: return
+            self.setheading(DOWN)
+            self.forward(10)
+
+        return
 
 
 

@@ -10,12 +10,16 @@ class Player:
         self.scoreboard.show_score()
         return
 
-    def move_up(self):
-        self.bar.up()
-        return
+    def press_up(self): self.bar.press_up()
 
-    def move_down(self):
-        self.bar.down()
+    def off_up(self): self.bar.off_up()
+
+    def press_down(self): self.bar.press_down()
+
+    def off_down(self): self.bar.off_down()
+
+    def move_player(self):
+        self.bar.move()
         return
 
     def show_end_game(self):

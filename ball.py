@@ -10,18 +10,10 @@ class Ball(Turtle):
         self.color("white")
         self.setposition(0,0)
         self.penup()
-        self.who_touched = "1"
         self.possible_directions = [0,45,135,225,315]
         self.direction = 0
         self.speed(1)
         self.x_move, self.y_move = 3, 3
-
-    def get_who_touched(self):
-        return self.who_touched
-
-    def set_who_touched(self,who_touched):
-        self.who_touched = who_touched
-        return
 
     def random_direction(self):
         self.direction = random.choice(self.possible_directions)
@@ -83,17 +75,17 @@ class Ball(Turtle):
         return
 
     def bounce_y(self):
-        # Invertir dirección vertical (para techos)
+        # Invertir dirección vertical
         self.y_move *= -1
 
     def bounce_x(self):
-        # Invertir dirección horizontal (para palas)
+        # Invertir dirección horizontal
         self.x_move *= -1
 
     def move_to_origin(self):
         self.setposition(0,0)
-        self.setheading(self.choose_next_direction())
         self.direction = self.random_direction()
+        self.setheading(self.direction)
         return
 
 

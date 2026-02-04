@@ -54,12 +54,18 @@ def is_game_over():
 screen.listen()
 
 #Player 1
-screen.onkeypress(player1.move_up, "w")
-screen.onkeypress(player1.move_down, "s")
+screen.onkeypress(player1.press_up, "w")
+screen.onkeyrelease(player1.off_up, "w")
+
+screen.onkeypress(player1.press_down, "s")
+screen.onkeyrelease(player1.off_down, "s")
 
 #PLayer 2
-screen.onkeypress(player2.move_up, "Up")
-screen.onkeypress(player2.move_down, "Down")
+screen.onkeypress(player2.press_up, "Up")
+screen.onkeyrelease(player2.off_up, "Up")
+
+screen.onkeypress(player2.press_down, "Down")
+screen.onkeyrelease(player2.off_down, "Down")
 
 #Variable of control
 game_is_on = True
@@ -73,8 +79,9 @@ while game_is_on:
     #Mueva la pelota y verifique si no ha chocado
     time.sleep(0.01)
     ball.move()
+    player1.move_player()
+    player2.move_player()
     ball.is_crash(player1,player2)
-
 
     #Actualiza la pantalla para mostrar los cambios
     screen.update()
