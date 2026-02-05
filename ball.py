@@ -48,8 +48,8 @@ class Ball(Turtle):
         x_pos_diff = abs(self.position()[0] - player.get_x_position())
         y_pos_diff = abs(self.position()[1] - player.get_y_position())
 
-        collision_y = y_pos_diff < 50
-        collision_x = x_pos_diff < 20
+        collision_y = y_pos_diff <= 50
+        collision_x = x_pos_diff <= 20
 
         is_crash =  collision_y and collision_x
 
@@ -62,6 +62,7 @@ class Ball(Turtle):
 
         if self.crash_with_borders():
             self.bounce_y()
+
         elif self.crash_with_player(player1) or self.crash_with_player(player2):
             self.bounce_x()
 

@@ -33,22 +33,13 @@ def check_if_is_point():
     return
 def is_game_over():
 
-    same_score = player1.get_score() == player2.get_score() == SCORE_TO_WIN
     actual_high_score = max(player1.get_score(), player2.get_score())
 
     # Si ambos alcanzan el mismo marcador
-    if same_score:
-        actual_score_diff = abs(player1.get_score() - player2.get_score())
-        diff_of_two = actual_score_diff == 2
+    if actual_high_score == SCORE_TO_WIN:
+        return True
 
-        if diff_of_two:
-            return False
-
-    # El primero en alcanzar el marcador decidido
-    elif actual_high_score == SCORE_TO_WIN:
-        return False
-
-    return True
+    return False
 
 # Controls keys configurations
 screen.listen()
@@ -90,7 +81,7 @@ while game_is_on:
     check_if_is_point()
 
     #Casos donde se termina el juego
-    game_is_on = is_game_over()
+    game_is_on = not is_game_over()
 
 #Mostrar mensaje de juego acabado
 #Cualquiera puede mostrar quien es el que perdió, es indiferente para la logica
