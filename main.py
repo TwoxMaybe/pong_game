@@ -1,24 +1,15 @@
+import time
 from turtle import Screen
 from player import Player
 from ball import Ball
-from game_constants import VERTICAL_RIGHT_LIMIT_TO_SCORE, VERTICAL_lEFT_LIMIT_TO_SCORE, SCORE_TO_WIN
-import game_constants as const
-import time
+from game_constants  import (VERTICAL_RIGHT_LIMIT_TO_SCORE, VERTICAL_lEFT_LIMIT_TO_SCORE,
+                             SCORE_TO_WIN,
+                             X_COR_PLAYER1, X_COR_PLAYER2,
+                             X_COR_SCOREBOARD1, X_COR_SCOREBOARD2, Y_COR_SCOREBOARD12,
+                             WIDTH_SCREEN, HEIGHT_SCREEN)
 
-#Screen configuration
-screen = Screen()
-screen.setup(const.WIDTH_SCREEN, const.HEIGHT_SCREEN)
-screen.title("Pong Game")
-screen.bgcolor("black")
-screen.tracer(0) #Off automatic animations
-
-#Objects configuration
-player1 = Player( -1 * const.X_COR_SCOREBOARD, const.Y_COR_SCOREBOARD, -1 * const.X_COR_PLAYER)
-player2 = Player(const.X_COR_SCOREBOARD, const.Y_COR_SCOREBOARD, const.X_COR_PLAYER)
-ball = Ball()
 
 #Functions
-
 def check_if_is_point():
 
     # Se obtiene un punto cuando la bola supera la posición de la barra en x
@@ -40,6 +31,18 @@ def is_game_over():
         return True
 
     return False
+
+#Screen configuration
+screen = Screen()
+screen.setup(WIDTH_SCREEN, HEIGHT_SCREEN)
+screen.title("Pong Game")
+screen.bgcolor("black")
+screen.tracer(0)
+
+#Objects configuration
+player1 = Player(X_COR_SCOREBOARD1, Y_COR_SCOREBOARD12, X_COR_PLAYER1)
+player2 = Player(X_COR_SCOREBOARD2, Y_COR_SCOREBOARD12, X_COR_PLAYER2)
+ball = Ball()
 
 # Controls keys configurations
 screen.listen()
@@ -77,14 +80,13 @@ while game_is_on:
     #Actualiza la pantalla para mostrar los cambios
     screen.update()
 
-    #Casos de anotación:
-    check_if_is_point()
-
     #Casos donde se termina el juego
     game_is_on = not is_game_over()
 
+    #Casos de anotación:
+    check_if_is_point()
+
 #Mostrar mensaje de juego acabado
-#Cualquiera puede mostrar quien es el que perdió, es indiferente para la logica
 player1.show_end_game()
 screen.exitonclick()
 

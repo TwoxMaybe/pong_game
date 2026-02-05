@@ -26,12 +26,16 @@ class Bar(Turtle):
 
     def move(self):
         if self.directions["UP"]:
-            if self.position()[1] >= 260: return
+            if self.position()[1] >= (HEIGHT_SCREEN/2) - 40:
+                return
+
             self.setheading(UP)
             self.forward(10)
 
         elif self.directions["DOWN"]:
-            if self.position()[1] <= -260: return
+            if self.position()[1] <= -1 * ((HEIGHT_SCREEN/2) - 40):
+                return
+
             self.setheading(DOWN)
             self.forward(10)
 

@@ -6,9 +6,11 @@ class Player:
         self.scoreboard = Scoreboard(x_cor_scoreboard, y_cor_scoreboard)
         self.bar = Bar(x_cor_bar)
 
-    def show_score(self):
-        self.scoreboard.show_score()
-        return
+    def get_y_position(self): return self.bar.position()[1]
+
+    def get_x_position(self): return self.bar.position()[0]
+
+    def move_player(self): self.bar.move()
 
     def press_up(self): self.bar.press_up()
 
@@ -18,23 +20,18 @@ class Player:
 
     def off_down(self): self.bar.off_down()
 
-    def move_player(self):
-        self.bar.move()
-        return
+    def get_score(self): return self.scoreboard.get_score()
 
-    def show_end_game(self):
-        self.scoreboard.show_end_game()
-        return
+    def give_point(self): self.scoreboard.add_point()
 
-    def get_score(self):
-        return self.scoreboard.get_score()
+    def show_score(self): self.scoreboard.show_score()
 
-    def give_point(self):
-        self.scoreboard.add_point()
+    def show_end_game(self): self.scoreboard.show_end_game()
 
-    def get_y_position(self):
-        return self.bar.position()[1]
 
-    def get_x_position(self):
-        return self.bar.position()[0]
+
+
+
+
+
 

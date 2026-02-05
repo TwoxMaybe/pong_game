@@ -1,5 +1,5 @@
 from turtle import Turtle
-from game_constants import X_COR_PLAYER
+from game_constants import HEIGHT_SCREEN
 import random
 
 
@@ -13,38 +13,18 @@ class Ball(Turtle):
         self.possible_directions = [0,45,135,225,315]
         self.direction = 0
         self.speed(1)
-        self.x_move, self.y_move = 3, 3
+        self.x_move, self.y_move = 4, 4
 
     def random_direction(self):
         self.direction = random.choice(self.possible_directions)
         return self.direction
 
-    def choose_next_direction(self):
-
-        if self.direction == self.possible_directions[0]:
-            return self.random_direction()
-
-        elif self.direction == self.possible_directions[1]:
-            return self.possible_directions[2]
-
-        elif self.direction == self.possible_directions[2]:
-            return self.possible_directions[3]
-
-        elif self.direction == self.possible_directions[3]:
-            return self.possible_directions[4]
-
-        return self.possible_directions[0]
-
     def crash_with_borders(self):
-
-        # Pared superior o inferior
-        if self.position()[1] >= 290 or self.position()[1] < -1 * 290:
+        if self.position()[1] >= (HEIGHT_SCREEN/2) - 10 or self.position()[1] < -1 * (HEIGHT_SCREEN/2) - 10:
             return True
         return False
 
     def crash_with_player(self, player):
-
-        #Si la bola esta lo suficientemente cerca en x y en y se cuenta como choque
         x_pos_diff = abs(self.position()[0] - player.get_x_position())
         y_pos_diff = abs(self.position()[1] - player.get_y_position())
 
@@ -63,8 +43,15 @@ class Ball(Turtle):
         if self.crash_with_borders():
             self.bounce_y()
 
-        elif self.crash_with_player(player1) or self.crash_with_player(player2):
-            self.bounce_x()
+        elif self.crash_with_player(player1):
+            if self.x_move < 0:
+                self.bounce_x()
+                self.setx(player1.get_x_position() + 10)
+
+        elif self.crash_with_player(player2):
+            if self.x_move > 0:
+                self.bounce_x()
+                self.setx(player2.get_x_position() - 10)
 
         return
 
@@ -76,16 +63,17 @@ class Ball(Turtle):
         return
 
     def bounce_y(self):
-        # Invertir dirección vertical
         self.y_move *= -1
 
     def bounce_x(self):
-        # Invertir dirección horizontal
         self.x_move *= -1
 
     def move_to_origin(self):
         self.setposition(0,0)
         self.direction = self.random_direction()
+        multiplicator = [-1,1]
+        self.x_move *=  random.choice(multiplicator)
+        self.y_move *=  random.choice(multiplicator)
         self.setheading(self.direction)
         return
 
