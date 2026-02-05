@@ -1,5 +1,5 @@
 from turtle import Turtle
-from game_constants import HEIGHT_SCREEN
+from game_constants import HEIGHT_SCREEN, MAX_SPEED
 import random
 
 
@@ -13,14 +13,15 @@ class Ball(Turtle):
         self.possible_directions = [0,45,135,225,315]
         self.direction = 0
         self.speed(1)
-        self.x_move, self.y_move = 4, 4
+        self.x_move, self.y_move = 3, 3
+        self.speed = 1.2
 
     def random_direction(self):
         self.direction = random.choice(self.possible_directions)
         return self.direction
 
     def crash_with_borders(self):
-        if self.position()[1] >= (HEIGHT_SCREEN/2) - 10 or self.position()[1] < -1 * (HEIGHT_SCREEN/2) - 10:
+        if self.position()[1] >= (HEIGHT_SCREEN/2) - 10 or self.position()[1] < -1 * ((HEIGHT_SCREEN/2) - 10):
             return True
         return False
 
@@ -68,12 +69,22 @@ class Ball(Turtle):
     def bounce_x(self):
         self.x_move *= -1
 
+        if self.x_move >= MAX_SPEED or self.y_move >= MAX_SPEED: return
+
+        self.x_move *= self.speed
+        self.y_move *= self.speed
+
     def move_to_origin(self):
         self.setposition(0,0)
         self.direction = self.random_direction()
+
+        self.x_move,self.y_move = 3,3
+
         multiplicator = [-1,1]
         self.x_move *=  random.choice(multiplicator)
         self.y_move *=  random.choice(multiplicator)
+
+
         self.setheading(self.direction)
         return
 
