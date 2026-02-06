@@ -1,5 +1,7 @@
 from turtle import Turtle
-from game_constants import HEIGHT_SCREEN, MAX_SPEED
+from game_constants import (HEIGHT_SCREEN, MAX_SPEED,
+                            COLISSION_DISTANCE_X, COLISSION_DISTANCE_Y,
+                            BALL_INITIAL_SPEED)
 import random
 
 
@@ -14,23 +16,23 @@ class Ball(Turtle):
         self.direction = 0
         self.speed(1)
         self.x_move, self.y_move = 3, 3
-        self.speed = 1.2
+        self.speed_factor = BALL_INITIAL_SPEED
 
     def random_direction(self):
         self.direction = random.choice(self.possible_directions)
         return self.direction
 
-    def crash_with_borders(self):
+    def is_crash_with_borders(self):
         if self.position()[1] >= (HEIGHT_SCREEN/2) - 10 or self.position()[1] < -1 * ((HEIGHT_SCREEN/2) - 10):
             return True
         return False
 
-    def crash_with_player(self, player):
+    def is_crash_with_player(self, player):
         x_pos_diff = abs(self.position()[0] - player.get_x_position())
         y_pos_diff = abs(self.position()[1] - player.get_y_position())
 
-        collision_y = y_pos_diff <= 50
-        collision_x = x_pos_diff <= 20
+        collision_y = y_pos_diff <= COLISSION_DISTANCE_Y
+        collision_x = x_pos_diff <= COLISSION_DISTANCE_X
 
         is_crash =  collision_y and collision_x
 
@@ -39,20 +41,18 @@ class Ball(Turtle):
 
         return False
 
-    def is_crash(self,player1,player2):
+    def handle_collisions(self, player1, player2):
 
-        if self.crash_with_borders():
+        if self.is_crash_with_borders():
             self.bounce_y()
 
-        elif self.crash_with_player(player1):
-            if self.x_move < 0:
-                self.bounce_x()
-                self.setx(player1.get_x_position() + 10)
+        elif self.is_crash_with_player(player1) and self.x_move < 0:
+            self.bounce_x()
+            self.setx(player1.get_x_position() + 10)
 
-        elif self.crash_with_player(player2):
-            if self.x_move > 0:
-                self.bounce_x()
-                self.setx(player2.get_x_position() - 10)
+        elif self.is_crash_with_player(player2) and self.x_move > 0:
+            self.bounce_x()
+            self.setx(player2.get_x_position() - 10)
 
         return
 
@@ -71,8 +71,8 @@ class Ball(Turtle):
 
         if self.x_move >= MAX_SPEED or self.y_move >= MAX_SPEED: return
 
-        self.x_move *= self.speed
-        self.y_move *= self.speed
+        self.x_move *= self.speed_factor
+        self.y_move *= self.speed_factor
 
     def move_to_origin(self):
         self.setposition(0,0)

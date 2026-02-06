@@ -1,5 +1,6 @@
 from turtle import Turtle
-from game_constants import HEIGHT_SCREEN
+from game_constants import (HEIGHT_SCREEN,
+                            BAR_MOVEMENT_SPEED)
 
 #Constants
 UP = 90
@@ -30,14 +31,14 @@ class Bar(Turtle):
                 return
 
             self.setheading(UP)
-            self.forward(10)
+            self.forward(BAR_MOVEMENT_SPEED)
 
         elif self.directions["DOWN"]:
             if self.position()[1] <= -1 * ((HEIGHT_SCREEN/2) - 40):
                 return
 
             self.setheading(DOWN)
-            self.forward(10)
+            self.forward(BAR_MOVEMENT_SPEED)
 
         return
 
