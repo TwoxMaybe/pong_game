@@ -1,31 +1,55 @@
 from turtle import Turtle
 
 class Scoreboard(Turtle):
-    def __init__ (self,x_cor, y_cor) -> None:
+    """
+    Handles the display and tracking of a player's score.
+
+    Inherits from the Turtle class to draw the score and game over messages
+    on the screen.
+    """
+
+    def __init__(self, x_cor: float, y_cor: float) -> None:
+        """
+        Initialize the Scoreboard at a specific position.
+
+        Args:
+            x_cor (float): The x-coordinate for the scoreboard.
+            y_cor (float): The y-coordinate for the scoreboard.
+        """
         super().__init__()
         self.penup()
         self.hideturtle()
         self.setpos(x_cor, y_cor)
         self.color("white")
-        self.score = 0
+        self.score: int = 0
 
     def add_point(self) -> None:
-        """Add one point to the score."""
-        self.score +=1
-        return
+        """Increment the current score by one."""
+        self.score += 1
 
     def show_score(self) -> None:
-        """Show the actual score"""
+        """
+        Clear the previous score and write the current score on the screen.
+
+        Uses the current position and a specific font style to display the score.
+        """
         self.clear()
         self.write(str(self.score), False, "center", ("Arial", 18, "normal"))
 
-        return
-
     def show_end_game(self) -> None:
-        """Show the message of the end of the game"""
-        self.setposition(0,0)
-        self.write("Game Over", False, "center", ("Arial", 18, "normal"))
-        return
+        """
+        Display the 'Game Over' message at the center of the screen.
 
-    def get_score(self):
+        Moves the turtle to the center (0, 0) before writing.
+        """
+        self.setposition(0, 0)
+        self.write("Game Over", False, "center", ("Arial", 18, "normal"))
+
+    def get_score(self) -> int:
+        """
+        Retrieve the current score.
+
+        Returns:
+            int: The current score value.
+        """
         return self.score
