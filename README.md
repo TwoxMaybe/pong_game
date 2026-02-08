@@ -57,7 +57,3 @@ MAX_SPEED = 8              # Maximum ball speed cap
 ## 👤 Author
 
 **TwoXMaybe(Cristhian Navas)** - Electronic Engineering Student
-
-```
-
-```
