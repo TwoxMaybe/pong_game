@@ -41,21 +41,6 @@ class Ball(Turtle):
 
         return False
 
-    def handle_collisions(self, player1, player2):
-
-        if self.is_crash_with_borders():
-            self.bounce_y()
-
-        elif self.is_crash_with_player(player1) and self.x_move < 0:
-            self.bounce_x()
-            self.setx(player1.get_x_position() + 10)
-
-        elif self.is_crash_with_player(player2) and self.x_move > 0:
-            self.bounce_x()
-            self.setx(player2.get_x_position() - 10)
-
-        return
-
     def move(self):
         new_x = self.xcor() + self.x_move
         new_y = self.ycor() + self.y_move
